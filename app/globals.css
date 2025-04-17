@@ -353,6 +353,41 @@ form button:active {
   transform: translateY(0);
 }
 
+/* Стили для вариантов ответов */
+.answer-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.answer-option {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.answer-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(217, 70, 239, 0.4);
+}
+
+.answer-option:active {
+  transform: translateY(0);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+}
+
 @media (max-width: 600px) {
   .game .header {
     flex-direction: column;
@@ -374,5 +409,17 @@ form button:active {
   .buttons {
     flex-direction: column;
     width: 100%;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 480px) {
+  .answer-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .answer-option {
+    font-size: 1.3rem;
+    padding: 0.8rem;
   }
 }
