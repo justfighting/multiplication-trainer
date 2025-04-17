@@ -27,7 +27,8 @@ export default function ResultCard({ score, total, time, answers, difficulty }) 
           <p>Время: <span>{minutes}:{seconds.toString().padStart(2, '0')}</span></p>
           <p>Уровень: <span>{
             difficulty === 'easy' ? 'Легкий' : 
-            difficulty === 'medium' ? 'Средний' : 'Сложный'
+            difficulty === 'medium' ? 'Средний' : 
+            difficulty === 'hard' ? 'Сложный' : 'UnDead[2BR]'
           }</span></p>
         </div>
       </div>
@@ -35,20 +36,24 @@ export default function ResultCard({ score, total, time, answers, difficulty }) 
       <div className="answers-container">
         <h3>Ваши ответы:</h3>
         <div className="answers-list">
-          {answers.map((item, index) => (
-            <div 
-              key={index} 
-              className={`answer-item ${item.isCorrect ? 'correct' : 'incorrect'}`}
-            >
-              <span className="question-text">{item.question} = </span>
-              <span className="user-answer">{item.userAnswer}</span>
-              {!item.isCorrect && (
-                <span className="correct-answer">
-                  (правильно: {item.correctAnswer})
-                </span>
-              )}
-            </div>
-          ))}
+          {answers && answers.length > 0 ? (
+            answers.map((item, index) => (
+              <div 
+                key={index} 
+                className={`answer-item ${item.isCorrect ? 'correct' : 'incorrect'}`}
+              >
+                <span className="question-text">{item.question} = </span>
+                <span className="user-answer">{item.userAnswer}</span>
+                {!item.isCorrect && (
+                  <span className="correct-answer">
+                    (правильно: {item.correctAnswer})
+                  </span>
+                )}
+              </div>
+            ))
+          ) : (
+            <p>Нет данных о предыдущих ответах</p>
+          )}
         </div>
       </div>
     </div>

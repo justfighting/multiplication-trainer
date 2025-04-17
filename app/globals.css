@@ -388,6 +388,88 @@ form button:active {
   background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
 }
 
+/* Стили для режима UnDead */
+.undead-button {
+  background: linear-gradient(135deg, #ff0066, #6600ff);
+  animation: pulse 2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.undead-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,0,102,0.2) 0%, rgba(102,0,255,0.2) 100%);
+  animation: rotate 8s linear infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px #ff0066;
+  }
+  50% {
+    box-shadow: 0 0 20px #6600ff;
+  }
+  100% {
+    box-shadow: 0 0 5px #ff0066;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Специальные стили для режима UnDead, когда он активен */
+.game.undead-mode .question {
+  background-color: #1a0033;
+  box-shadow: 0 0 15px #6600ff;
+}
+
+.game.undead-mode .number {
+  color: #ff3399;
+}
+
+.game.undead-mode .operator, 
+.game.undead-mode .equals {
+  color: #cc00cc;
+}
+
+.game.undead-mode .answer {
+  border-color: #ff3399;
+}
+
+.game.undead-mode .timer,
+.game.undead-mode .progress {
+  background-color: #1a0033;
+  color: #ff3399;
+}
+
+/* Стили для вариантов ответов в режиме UnDead */
+.undead-options {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.undead-option {
+  background: linear-gradient(135deg, #ff0066, #6600ff);
+  border: 1px solid #ff3399;
+  transition: all 0.3s;
+}
+
+.undead-option:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #cc00cc;
+}
+
 @media (max-width: 600px) {
   .game .header {
     flex-direction: column;
@@ -421,5 +503,9 @@ form button:active {
   .answer-option {
     font-size: 1.3rem;
     padding: 0.8rem;
+  }
+  
+  .undead-options {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

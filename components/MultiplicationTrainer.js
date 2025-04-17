@@ -8,7 +8,8 @@ import useTimer from '../hooks/useTimer';
 const difficultyLevels = {
   easy: { min: 1, max: 5, questions: 10 },
   medium: { min: 1, max: 9, questions: 15 },
-  hard: { min: 1, max: 12, questions: 20 }
+  hard: { min: 1, max: 12, questions: 20 },
+  undead: { min: 10, max: 20, questions: 25 } // Новый уровень UnDead[2BR]
 };
 
 export default function MultiplicationTrainer() {
@@ -46,7 +47,7 @@ export default function MultiplicationTrainer() {
     setQuestions(newQuestions);
     setCurrentQuestion(0);
     setScore(0);
-    setAnswers([]);
+    setAnswers([]); // Очищаем историю ответов для новой игры
     setGameState('playing');
     resetTimer();
     startTimer();
@@ -63,6 +64,7 @@ export default function MultiplicationTrainer() {
       setScore(score + 1);
     }
     
+    // Сохраняем ответ в историю
     setAnswers([...answers, {
       question: `${questions[currentQuestion].num1} × ${questions[currentQuestion].num2}`,
       correctAnswer: questions[currentQuestion].answer,
@@ -94,16 +96,18 @@ export default function MultiplicationTrainer() {
             <button onClick={() => startGame('easy')}>Легкий (1-5)</button>
             <button onClick={() => startGame('medium')}>Средний (1-9)</button>
             <button onClick={() => startGame('hard')}>Сложный (1-12)</button>
+            <button onClick={() => startGame('undead')} className="undead-button">UnDead[2BR] (10-20)</button>
           </div>
         </div>
       )}
 
       {gameState === 'playing' && (
-        <div className="game">
+        <div className={`game ${difficulty === 'undead' ? 'undead-mode' : ''}`}>
           <div className="header">
             <h2>Уровень: {
               difficulty === 'easy' ? 'Легкий' : 
-              difficulty === 'medium' ? 'Средний' : 'Сложный'
+              difficulty === 'medium' ? 'Средний' : 
+              difficulty === 'hard' ? 'Сложный' : 'UnDead[2BR]'
             }</h2>
             <div className="stats">
               <div className="progress">
@@ -119,6 +123,7 @@ export default function MultiplicationTrainer() {
             num1={questions[currentQuestion].num1} 
             num2={questions[currentQuestion].num2} 
             onAnswer={checkAnswer} 
+            isUndeadMode={difficulty === 'undead'}
           />
         </div>
       )}
